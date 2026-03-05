@@ -223,12 +223,10 @@
     header { margin-bottom: 48px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     .header-brand { display: flex; align-items: center; gap: 14px; }
     .header-logo {
-      width: 38px; height: 38px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--cyan), #1a9fd4);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 800; font-size: 16px; font-family: 'Raleway', sans-serif;
-      flex-shrink: 0;
+      width: 48px; height: 48px; border-radius: 12px;
+      overflow: hidden; flex-shrink: 0;
     }
+    .header-logo img { width: 100%; height: 100%; display: block; }
     header h1 {
       font-family: 'Raleway', sans-serif;
       font-size: 26px; font-weight: 800;
@@ -398,7 +396,7 @@
 
   <header>
     <div class="header-brand">
-      <div class="header-logo">H</div>
+      <div class="header-logo"><img src="https://24422549.fs1.hubspotusercontent-na1.net/hubfs/24422549/Hyly-Favicon.png" alt="Hyly logo"></div>
       <div>
         <h1>Hyly Teams Dashboard</h1>
         <p>Tiger Teams + Practice Teams · Last updated: March 2026</p>
