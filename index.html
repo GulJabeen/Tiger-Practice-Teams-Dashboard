@@ -11,8 +11,10 @@
        DATA TABLE — edit everything here, never touch the HTML below
        ═══════════════════════════════════════════════════════════════ -->
   <script>
+  // product: "Hayley" | "Halo" | "Helix"
   const TIGER_TEAMS = [
     {
+      product: "Hayley",
       name: "Voice/SMS Tiger Team",
       productOwner: "Gul",
       enterpriseArchitect: "Phil",
@@ -27,6 +29,7 @@
       executionHorizon: "3 month milestone",
     },
     {
+      product: "Hayley",
       name: "Agentic Solutions Tiger Team",
       productOwner: "Gul",
       enterpriseArchitect: "Munish",
@@ -44,6 +47,7 @@
       executionHorizon: "3 month milestone",
     },
     {
+      product: "Hayley",
       name: "Unification of MA and AAI Tiger Team",
       productOwner: "Gul",
       enterpriseArchitect: "Phil",
@@ -58,6 +62,7 @@
       executionHorizon: "3 month milestone",
     },
     {
+      product: "Hayley",
       name: "Prompt Quality Tiger Team",
       productOwner: "Gul",
       enterpriseArchitect: "Phil",
@@ -406,6 +411,32 @@
       background: var(--cyan); flex-shrink: 0;
     }
 
+    /* product tabs */
+    .product-tabs {
+      display: flex; gap: 6px; margin-bottom: 24px;
+    }
+    .product-tab {
+      padding: 8px 20px; border-radius: 8px; border: 1px solid var(--border);
+      font-family: 'Raleway', sans-serif; font-size: 13px; font-weight: 700;
+      cursor: pointer; background: var(--white); color: var(--muted);
+      transition: all 0.15s;
+    }
+    .product-tab:hover { border-color: var(--cyan); color: var(--navy); }
+    .product-tab.active {
+      background: var(--navy); color: #fff; border-color: var(--navy);
+    }
+    .product-tab[data-product="Hayley"].active { background: var(--navy); border-color: var(--navy); }
+    .product-tab[data-product="Halo"].active   { background: #1a4d6e; border-color: #1a4d6e; }
+    .product-tab[data-product="Helix"].active  { background: #1a5c3a; border-color: #1a5c3a; }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center; padding: 48px 24px;
+      color: var(--muted); font-size: 13px;
+      border: 2px dashed var(--border); border-radius: 12px;
+    }
+    .empty-state strong { display: block; font-size: 15px; color: var(--navy); margin-bottom: 6px; }
+
     footer {
       text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px;
       padding-top: 20px; border-top: 1px solid var(--border);
@@ -437,6 +468,11 @@
           <h2>Tiger Teams</h2>
           <span class="subtitle-label">Outcome owners · own results, tradeoffs, and shipping decisions</span>
         </div>
+      </div>
+      <div class="product-tabs">
+        <button class="product-tab active" data-product="Hayley">Hayley</button>
+        <button class="product-tab"        data-product="Halo">Halo</button>
+        <button class="product-tab"        data-product="Helix">Helix</button>
       </div>
       <div class="tiger-grid" id="tiger-grid"></div>
     </section>
@@ -526,7 +562,27 @@
         </div>`;
     }
 
-    document.getElementById('tiger-grid').innerHTML = TIGER_TEAMS.map(renderTigerCard).join('');
+    function renderTigerGrid(product) {
+      const filtered = TIGER_TEAMS.filter(t => t.product === product);
+      const grid = document.getElementById('tiger-grid');
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty-state"><strong>No tiger teams yet</strong>Tiger teams for ${product} will appear here.</div>`;
+      } else {
+        grid.innerHTML = filtered.map(renderTigerCard).join('');
+      }
+    }
+
+    // tab switching
+    document.querySelectorAll('.product-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.product-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTigerGrid(btn.dataset.product);
+      });
+    });
+
+    // initial render — default to first active tab
+    renderTigerGrid('Hayley');
     document.getElementById('practice-grid').innerHTML = PRACTICE_TEAMS.map(renderPracticeCard).join('');
   </script>
 
