@@ -12,9 +12,11 @@
        ═══════════════════════════════════════════════════════════════ -->
   <script>
   // product: "Hayley" | "Halo" | "Helix"
+  // type:    "Client Impact" | "Strategic Impact"
   const TIGER_TEAMS = [
     {
       product: "Hayley",
+      type: "Client Impact",
       name: "Voice/SMS Tiger Team",
       productOwner: "Gul",
       enterpriseArchitect: "Phil",
@@ -23,13 +25,17 @@
       members: [],
       goal: "Willow Bridge voice rollout with measurable booking and response improvements.",
       northStar: {
-        primary: "Conversion Rate Velocity",
+        primary: "Conversion Rate Improvement",
         secondary: ["Latency", "Automation", "Prospect experience"],
       },
-      executionHorizon: "3 month milestone",
+      milestones: {
+        threeMonth: "Willow Bridge voice live — booking rate baseline established",
+        sixMonth: "Measurable booking & response improvement vs baseline",
+      },
     },
     {
       product: "Hayley",
+      type: "Strategic Impact",
       name: "Agentic Solutions Tiger Team",
       productOwner: "Gul",
       enterpriseArchitect: "Munish",
@@ -41,40 +47,51 @@
       ],
       goal: "Build decision intelligence layer enabling automated campaigns, alerts, and reporting across Hayley products.",
       northStar: {
-        primary: "Conversion Rate Velocity",
-        secondary: ["Latency", "Automation", "Prospect experience"],
+        primary: "Execution Velocity",
+        secondary: ["Automation", "Latency", "Prospect experience"],
       },
-      executionHorizon: "3 month milestone",
+      milestones: {
+        threeMonth: "Decision intelligence MVP — automated alerts & reporting live",
+        sixMonth: "Automated campaigns live with measurable conversion lift",
+      },
     },
     {
       product: "Hayley",
+      type: "Strategic Impact",
       name: "Unification of MA and AAI Tiger Team",
       productOwner: "Gul",
       enterpriseArchitect: "Phil",
       businessWhisperer: "Gul",
-      technicalExpert: "-",
+      technicalExpert: null,   // ⚠ Not assigned — needs owner
       members: [],
       goal: "Unify Marketing Automation (MA) with Agentic AI (AAI) to enable intelligent automation across Hayley products — alerts, drip campaigns, follow-ups, and engagement workflows. AI agents decide when to trigger alerts, send drips, and engage prospects based on behavior, intent, and conversation context.",
       northStar: {
-        primary: "Conversion Rate Velocity",
-        secondary: ["Latency", "Automation", "Prospect experience"],
+        primary: "Execution Velocity",
+        secondary: ["Automation", "Latency", "Prospect experience"],
       },
-      executionHorizon: "3 month milestone",
+      milestones: {
+        threeMonth: "MA + AAI integration architecture complete — first workflow live",
+        sixMonth: "Intelligent drip campaigns & follow-ups live across Hayley",
+      },
     },
     {
       product: "Hayley",
+      type: "Client Impact",
       name: "Prompt Quality Tiger Team",
       productOwner: "Gul",
       enterpriseArchitect: "Phil",
       businessWhisperer: "Neha",
-      technicalExpert: "-",
+      technicalExpert: null,   // ⚠ Not assigned — needs owner
       members: [],
       goal: "Improve response quality using prompt governance, evaluation frameworks, and BMR/BCR monitoring.",
       northStar: {
-        primary: "Conversion Rate Velocity",
-        secondary: ["Response Quality", "Automation", "Prospect experience"],
+        primary: "Conversion Rate Improvement",
+        secondary: ["Response Quality", "Prospect experience", "Automation"],
       },
-      executionHorizon: "3 month milestone",
+      milestones: {
+        threeMonth: "Eval gates + BMR/BCR monitoring in place — regression blocking active",
+        sixMonth: "Measurable response quality improvement vs baseline",
+      },
     },
   ];
 
@@ -411,6 +428,23 @@
       background: var(--cyan); flex-shrink: 0;
     }
 
+    /* type badge */
+    .type-badge {
+      display: inline-block; font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 4px; margin-top: 6px;
+      letter-spacing: 0.4px;
+    }
+    .type-badge.client  { background: rgba(38,187,237,0.18); color: #cfeefb; }
+    .type-badge.strategic { background: rgba(42,208,142,0.18); color: #a8e6cb; }
+
+    /* milestones */
+    .milestones-block { display: flex; flex-direction: column; gap: 6px; }
+    .milestone-row { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; color: var(--navy); }
+    .milestone-label {
+      flex-shrink: 0; font-size: 9px; font-weight: 700; letter-spacing: 0.7px;
+      text-transform: uppercase; color: var(--muted); padding-top: 1px; min-width: 56px;
+    }
+
     /* product tabs */
     .product-tabs {
       display: flex; gap: 6px; margin-bottom: 24px;
@@ -505,17 +539,22 @@
         `<span class="scope-pill">${s}</span>`
       ).join('');
 
+      const typeCls   = t.type === 'Client Impact' ? 'client' : 'strategic';
+      const teColor   = t.technicalExpert ? '' : 'color:#e05252';
+      const teLabel   = t.technicalExpert || 'Not assigned';
+
       return `
         <div class="tiger-card">
           <div class="tiger-card-header">
             <h3>${t.name}</h3>
+            <span class="type-badge ${typeCls}">${t.type}</span>
           </div>
           <div class="tiger-card-body">
             <div class="meta-row">
               <div class="meta-item"><label>Product Owner</label><span>${t.productOwner}</span></div>
               <div class="meta-item"><label>Enterprise Architect</label><span>${t.enterpriseArchitect}</span></div>
               <div class="meta-item"><label>Business Whisperer</label><span>${t.businessWhisperer}</span></div>
-              <div class="meta-item"><label>Technical Expert</label><span style="${t.technicalExpert ? '' : 'color:#c0392b'}">${t.technicalExpert || 'Not assigned'}</span></div>
+              <div class="meta-item"><label>Technical Expert</label><span style="${teColor}">${teLabel}</span></div>
             </div>
             <div class="focus-block"><label>Goal</label><p>${t.goal}</p></div>
             ${t.members.length ? `
@@ -528,8 +567,10 @@
               <p><strong>${t.northStar.primary}</strong></p>
               <div class="scope-pills" style="margin-top:6px">${secondaryMetrics}</div>
             </div>
-            <div class="meta-row">
-              <div class="meta-item"><label>Execution Horizon</label><span>${t.executionHorizon}</span></div>
+            <div class="milestones-block">
+              <label style="font-size:9px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px">Milestones</label>
+              <div class="milestone-row"><span class="milestone-label">3 Month</span>${t.milestones.threeMonth}</div>
+              <div class="milestone-row"><span class="milestone-label">6 Month</span>${t.milestones.sixMonth}</div>
             </div>
           </div>
         </div>`;
