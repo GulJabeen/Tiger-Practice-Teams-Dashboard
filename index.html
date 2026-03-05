@@ -214,31 +214,53 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding: 40px 28px;
-      max-width: 1400px;
-      margin: 0 auto;
+      padding: 0;
+      padding-top: 72px; /* navbar height */
     }
 
-    /* header */
-    header { margin-bottom: 48px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-    .header-brand { display: flex; align-items: center; gap: 14px; }
-    .header-logo {
-      width: 48px; height: 48px; border-radius: 12px;
+    /* sticky navbar */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(9,21,43,0.07);
+      display: flex; align-items: center;
+      padding: 0 28px;
+      gap: 12px;
+    }
+    .navbar-logo {
+      width: 40px; height: 40px; border-radius: 10px;
       overflow: hidden; flex-shrink: 0;
     }
-    .header-logo img { width: 100%; height: 100%; display: block; }
-    header h1 {
+    .navbar-logo img { width: 100%; height: 100%; display: block; }
+    .navbar-title {
       font-family: 'Raleway', sans-serif;
-      font-size: 26px; font-weight: 800;
-      letter-spacing: -0.4px; color: var(--navy);
+      font-size: 18px; font-weight: 800;
+      letter-spacing: -0.3px; color: var(--navy);
     }
-    header p { color: var(--muted); font-size: 13px; margin-top: 4px; font-weight: 500; }
-    .header-badge {
+    .navbar-badge {
+      margin-left: auto;
       background: var(--blue-pale); color: #0a7bc4;
       font-size: 11px; font-weight: 600; padding: 4px 10px;
       border-radius: 20px; letter-spacing: 0.3px;
-      align-self: center;
     }
+
+    /* page content */
+    .page-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 28px;
+    }
+
+    /* page heading */
+    .page-heading { margin-bottom: 40px; }
+    .page-heading p { color: var(--muted); font-size: 13px; margin-top: 5px; font-weight: 500; }
+
+    /* legacy header — hidden, replaced by navbar */
+    header { display: none; }
+
+    .header-badge { display: none; }
 
     /* section dividers */
     .tiger-section, .practice-section { margin-bottom: 56px; }
@@ -394,40 +416,46 @@
 </head>
 <body>
 
-  <header>
-    <div class="header-brand">
-      <div class="header-logo"><img src="https://24422549.fs1.hubspotusercontent-na1.net/hubfs/24422549/Hyly-Favicon.png" alt="Hyly logo"></div>
-      <div>
-        <h1>Hyly Teams Dashboard</h1>
-        <p>Tiger Teams + Practice Teams · Last updated: March 2026</p>
-      </div>
+  <!-- sticky navbar -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <img src="https://24422549.fs1.hubspotusercontent-na1.net/hubfs/24422549/Hyly-Favicon.png" alt="Hyly logo">
     </div>
-    <span class="header-badge">v1.0 · Internal</span>
-  </header>
+    <span class="navbar-title">Hyly Teams Dashboard</span>
+    <span class="navbar-badge">v1.0 · Internal</span>
+  </nav>
 
-  <section class="tiger-section">
-    <div class="section-header">
-      <div class="section-icon tiger-icon">🐯</div>
-      <div>
-        <h2>Tiger Teams</h2>
-        <span class="subtitle-label">Outcome owners · own results, tradeoffs, and shipping decisions</span>
-      </div>
+  <div class="page-content">
+
+    <div class="page-heading">
+      <p>Tiger Teams + Practice Teams · Last updated: March 2026</p>
     </div>
-    <div class="tiger-grid" id="tiger-grid"></div>
-  </section>
 
-  <section class="practice-section">
-    <div class="section-header">
-      <div class="section-icon practice-icon">🏛</div>
-      <div>
-        <h2>Practice Teams</h2>
-        <span class="subtitle-label">Standards & infrastructure · define defaults, guardrails, and quality</span>
+    <section class="tiger-section">
+      <div class="section-header">
+        <div class="section-icon tiger-icon">🐯</div>
+        <div>
+          <h2>Tiger Teams</h2>
+          <span class="subtitle-label">Outcome owners · own results, tradeoffs, and shipping decisions</span>
+        </div>
       </div>
-    </div>
-    <div class="practice-grid" id="practice-grid"></div>
-  </section>
+      <div class="tiger-grid" id="tiger-grid"></div>
+    </section>
 
-  <footer>Hyly · Tiger Teams + Practice Teams Model · v1.0.0 · Created by Munish Gandhi · Drafted 2026-03-02</footer>
+    <section class="practice-section">
+      <div class="section-header">
+        <div class="section-icon practice-icon">🏛</div>
+        <div>
+          <h2>Practice Teams</h2>
+          <span class="subtitle-label">Standards & infrastructure · define defaults, guardrails, and quality</span>
+        </div>
+      </div>
+      <div class="practice-grid" id="practice-grid"></div>
+    </section>
+
+    <footer>Hyly · Tiger Teams + Practice Teams Model · v1.0.0 · Created by Munish Gandhi · Drafted 2026-03-02</footer>
+
+  </div>
 
   <!-- ═══════════════════════════════════════════════════════════════
        RENDERER — no need to touch
