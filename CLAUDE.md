@@ -4,44 +4,57 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Single-file HTML dashboard for HayleyAAI Tiger Teams + Practice Teams. Hosted on GitHub Pages at https://guljabeen.github.io/Tiger-Practice-Teams-Dashboard/
+Single-file HTML dashboard for Hyly Tiger Teams + Practice Teams. Hosted on GitHub Pages at https://guljabeen.github.io/Tiger-Practice-Teams-Dashboard/
+
+## File Structure
+
+```
+dashboard.html          ← source file — edit this one
+index.html              ← GitHub Pages entry (copy of dashboard.html)
+images/
+  hyly-logo.png         ← Hyly wordmark used in navbar
+teams.md                ← Tiger/Practice Teams concept document
+CLAUDE.md               ← this file
+.claude/
+  commands/
+    brand-voice.md      ← /brand-voice skill (colors, fonts, tone)
+.gitignore              ← excludes .env, .DS_Store
+```
 
 ## Deploy to GitHub Pages
 
 ```bash
-cp dashboard.html index.html && git add index.html && git commit -m "Update teams" && git push
+cp dashboard.html index.html && git add -A && git commit -m "Update" && git push
 ```
 
-`dashboard.html` is the working file (untracked by git). `index.html` is the GitHub Pages entry point (tracked).
+`dashboard.html` is the working source. `index.html` is the GitHub Pages entry point — always kept in sync.
 
 ## Architecture
 
-`dashboard.html` is split into three clearly labeled zones — only the first zone needs editing:
+`dashboard.html` has three clearly labeled zones — only the first needs editing:
 
-1. **DATA TABLE** (top `<script>` block) — all team data lives here, nothing else needs touching
-2. **STYLES** (`<style>` block) — visual design, rarely touched
-3. **RENDERER** (bottom `<script>` block) — `renderTigerCard()` and `renderPracticeCard()` functions
+1. **DATA TABLE** (top `<script>`) — all team data, nothing else needs touching
+2. **STYLES** (`<style>`) — Hyly brand design system
+3. **RENDERER** (bottom `<script>`) — `renderTigerCard()` and `renderPracticeCard()`
 
-### Data Arrays
-
-**TIGER_TEAMS** schema:
+### TIGER_TEAMS schema
 ```js
 {
-  name, productOwner, enterpriseArchitect, businessWhisperer, technicalExpert,
+  name, productOwner, enterpriseArchitect, businessWhisperer,
+  technicalExpert,          // "-" shows as red "Not assigned"
   members: [{ name, role, contrib }],
   goal,
   northStar: { primary, secondary: [] },
   executionHorizon
 }
 ```
-- `technicalExpert: "-"` renders in red as "Not assigned"
 
-**PRACTICE_TEAMS** schema:
+### PRACTICE_TEAMS schema
 ```js
 {
-  name, subtitle,       // subtitle is optional
+  name, subtitle,           // subtitle optional
   productOwner, techLead,
-  goal,                 // optional
+  goal,                     // optional
   members: [{ name, role, contrib }],
   owns: []
 }
@@ -49,10 +62,12 @@ cp dashboard.html index.html && git add index.html && git commit -m "Update team
 
 ### Member chips
 - `contrib: false` → blue chip (core member)
-- `contrib: true` → grey chip (contributing/partial)
+- `contrib: true` → grey chip (partial / contributing)
 
-## Current Teams
+## Brand Tokens
 
-**Tiger Teams:** Voice/SMS · Agentic Solutions · Unification of MA and AAI · Prompt Quality
+```css
+--cyan: #26BBED   --green: #2AD08E   --navy: #09152B
+```
 
-**Practice Teams:** ML Eng · API · QA · DevOps · FE · Dsc
+Fonts: `Raleway` (headings, weight 700–800) · `Inter` (body, weight 400–600)
