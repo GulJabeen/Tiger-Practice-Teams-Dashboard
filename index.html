@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HayleyAAI Teams Dashboard</title>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DATA TABLE — edit everything here, never touch the HTML below
+       ═══════════════════════════════════════════════════════════════ -->
+  <script>
+  const TIGER_TEAMS = [
+    {
+      name: "Voice/SMS Tiger Team",
+      productOwner: "Gul",
+      enterpriseArchitect: "Phil",
+      businessWhisperer: "Muneeb",
+      technicalExpert: "Muneeb",
+      members: [],
+      goal: "Willow Bridge voice rollout with measurable booking and response improvements.",
+      northStar: {
+        primary: "Conversion Rate Velocity",
+        secondary: ["Latency", "Automation", "Prospect experience"],
+      },
+      executionHorizon: "3 month milestone",
+    },
+    {
+      name: "Agentic Solutions Tiger Team",
+      productOwner: "Gul",
+      enterpriseArchitect: "Munish",
+      businessWhisperer: "Munish",
+      technicalExpert: "Talha",
+      members: [
+        { name: "Shaharyar", role: "Exploring OpenClaw", contrib: false },
+        { name: "Waqas",     role: "WebMCP",             contrib: false },
+      ],
+      goal: "Build decision intelligence layer enabling automated campaigns, alerts, and reporting across Hayley products.",
+      northStar: {
+        primary: "Conversion Rate Velocity",
+        secondary: ["Latency", "Automation", "Prospect experience"],
+      },
+      executionHorizon: "3 month milestone",
+    },
+    {
+      name: "Unification of MA and AAI Tiger Team",
+      productOwner: "Gul",
+      enterpriseArchitect: "Phil",
+      businessWhisperer: "Gul",
+      technicalExpert: "-",
+      members: [],
+      goal: "Unify Marketing Automation (MA) with Agentic AI (AAI) to enable intelligent automation across Hayley products — alerts, drip campaigns, follow-ups, and engagement workflows. AI agents decide when to trigger alerts, send drips, and engage prospects based on behavior, intent, and conversation context.",
+      northStar: {
+        primary: "Conversion Rate Velocity",
+        secondary: ["Latency", "Automation", "Prospect experience"],
+      },
+      executionHorizon: "3 month milestone",
+    },
+    {
+      name: "Prompt Quality Tiger Team",
+      productOwner: "Gul",
+      enterpriseArchitect: "Phil",
+      businessWhisperer: "Neha",
+      technicalExpert: "-",
+      members: [],
+      goal: "Improve response quality using prompt governance, evaluation frameworks, and BMR/BCR monitoring.",
+      northStar: {
+        primary: "Conversion Rate Velocity",
+        secondary: ["Response Quality", "Automation", "Prospect experience"],
+      },
+      executionHorizon: "3 month milestone",
+    },
+  ];
+
+  const PRACTICE_TEAMS = [
+    {
+      name: "ML Eng. Practice Team",
+      subtitle: "Observability · Prompting · KG & Evals",
+      productOwner: "Gul",
+      techLead: "Junaid",
+      members: [
+        { name: "Mahnoor", role: "Observability, Eval & Benchmarking", contrib: false },
+        { name: "Awais",   role: "KG",                                 contrib: false },
+        { name: "Aena",    role: "Inference",                          contrib: false },
+        { name: "Taha",    role: null,                                 contrib: false },
+        { name: "Auroob",  role: null,                                 contrib: false },
+      ],
+      owns: [
+        "Langfuse",
+        "Prompt standards",
+        "Eval gates",
+        "Regression blocking",
+        "Caching architecture",
+        "Latency dashboards",
+        "KG schema · Node standards · Grounding rules",
+        "Model routing · Multitool infra · TTH architecture",
+        "System reliability · Cost vs latency optimization",
+        "Orchestrator framework",
+      ],
+    },
+    {
+      name: "API Team",
+      subtitle: null,
+      productOwner: "Tin",
+      techLead: "Waleed",
+      members: [
+        { name: "Mohsin Raza",      role: null, contrib: false },
+        { name: "Hamza Satti",      role: null, contrib: false },
+        { name: "AbdulRehman",      role: null, contrib: false },
+        { name: "Muhammad Areeb",   role: null, contrib: false },
+      ],
+      owns: [
+        "Suborg architecture standards",
+        "API contract definitions",
+        "Data integration patterns",
+        "Environment isolation standards (QA / STG / PROD)",
+        "Import framework logic",
+        "API reliability & validation rules",
+      ],
+    },
+    {
+      name: "QA Team",
+      subtitle: null,
+      productOwner: "Nick",
+      techLead: "Shehroz",
+      goal: "Hayley AI 100% automation coverage — manual testing until fully automated, TDD approach",
+      members: [
+        { name: "Prince Pandey", role: null, contrib: false },
+        { name: "Farooq",        role: null, contrib: false },
+        { name: "Haider Talal",  role: null, contrib: false },
+      ],
+      owns: [
+        "Test automation standards",
+        "Hayley AI automation coverage",
+        "Manual testing (until fully automated)",
+        "TDD approach & enforcement",
+        "QA gates & release standards",
+      ],
+    },
+    {
+      name: "DevOps Team",
+      subtitle: null,
+      productOwner: "Tin",
+      techLead: "Tin",
+      goal: "Make sure every deployment goes right — own CI/CD, infrastructure, and all DevOps standards",
+      members: [
+        { name: "Jahanzaib", role: null, contrib: false },
+        { name: "Ali Hasan",  role: null, contrib: false },
+      ],
+      owns: [
+        "CI/CD pipelines",
+        "Deployment standards & reliability",
+        "Infrastructure management",
+        "Environment provisioning",
+        "Monitoring & alerting",
+        "Release process & rollback standards",
+      ],
+    },
+    {
+      name: "FE Team",
+      subtitle: null,
+      productOwner: "Harish",
+      techLead: "Hassan",
+      members: [
+        { name: "Rana",         role: null, contrib: false },
+        { name: "Mehroz",       role: null, contrib: false },
+        { name: "Junaid Elahi", role: null, contrib: false },
+      ],
+      owns: [
+        "Frontend standards",
+        "UI stability",
+        "Test coverage",
+        "Rendering reliability",
+      ],
+    },
+  ];
+  </script>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       STYLES — no need to touch
+       ═══════════════════════════════════════════════════════════════ -->
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      padding: 32px 24px;
+    }
+
+    header { margin-bottom: 40px; }
+    header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+    header p  { color: #6e6e73; font-size: 14px; margin-top: 6px; }
+
+    /* sections */
+    .tiger-section, .practice-section { margin-bottom: 52px; }
+    .tiger-header, .practice-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .tiger-header h2, .practice-header h2 { font-size: 20px; font-weight: 700; }
+    .subtitle-label { font-size: 13px; color: #6e6e73; }
+
+    /* grids */
+    .tiger-grid, .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    /* cards */
+    .tiger-card, .practice-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #e5e5ea;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .tiger-card-header  { background: #1c1c1e; color: #fff; padding: 16px 20px; }
+    .practice-card-header { background: #1c3a5e; color: #fff; padding: 16px 20px; }
+    .tiger-card-header h3, .practice-card-header h3 {
+      font-size: 14px; font-weight: 700; line-height: 1.4;
+    }
+    .tiger-card-body, .practice-card-body {
+      padding: 18px 20px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    /* meta row */
+    .meta-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .meta-item label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #8e8e93;
+      display: block; margin-bottom: 3px;
+    }
+    .meta-item span { font-size: 13px; font-weight: 600; color: #1d1d1f; }
+
+    /* focus */
+    .focus-block { background: #f5f5f7; border-radius: 8px; padding: 10px 12px; }
+    .focus-block label, .members-block label, .scope-block label, .owns-list label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #8e8e93;
+      display: block; margin-bottom: 4px;
+    }
+    .focus-block p { font-size: 13px; color: #1d1d1f; }
+
+    /* members */
+    .member-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+    .chip {
+      font-size: 12px; font-weight: 500;
+      padding: 4px 10px; border-radius: 99px;
+      background: #e8f4ff; color: #0071e3;
+    }
+    .chip.contrib { background: #f5f5f7; color: #6e6e73; }
+    .members-note { font-size: 11px; color: #8e8e93; margin-top: 4px; }
+
+    /* north star */
+    .northstar {
+      background: #fff9e6; border-left: 3px solid #f5c842;
+      border-radius: 0 8px 8px 0; padding: 10px 12px;
+    }
+    .northstar label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #8e8e93;
+      display: block; margin-bottom: 4px;
+    }
+    .northstar p { font-size: 13px; color: #5a4400; font-weight: 500; }
+
+    /* scope */
+    .scope-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+    .scope-pill {
+      font-size: 11px; padding: 3px 8px; border-radius: 6px;
+      background: #f0faf0; color: #1a7f3c; border: 1px solid #b7e8c8;
+    }
+
+    /* owns */
+    .owns-list { display: flex; flex-direction: column; gap: 4px; }
+    .owns-item {
+      font-size: 12px; color: #1d1d1f;
+      padding: 3px 0; border-bottom: 1px solid #f5f5f7;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .owns-item::before { content: "·"; color: #8e8e93; font-weight: 700; }
+
+    footer {
+      text-align: center; font-size: 12px; color: #8e8e93; margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🐯 HayleyAAI Teams Dashboard</h1>
+    <p>Tiger Teams + Practice Teams · v1.0 · Last updated: March 2026</p>
+  </header>
+
+  <section class="tiger-section">
+    <div class="tiger-header">
+      <h2>🐯 Tiger Teams</h2>
+      <span class="subtitle-label">Outcome Owners — own results, tradeoffs, and shipping decisions</span>
+    </div>
+    <div class="tiger-grid" id="tiger-grid"></div>
+  </section>
+
+  <section class="practice-section">
+    <div class="practice-header">
+      <h2>🏛 Practice Teams</h2>
+      <span class="subtitle-label">Standards & Infrastructure — define defaults, guardrails, and quality</span>
+    </div>
+    <div class="practice-grid" id="practice-grid"></div>
+  </section>
+
+  <footer>Hyly · Tiger Teams + Practice Teams Model · v1.0.0 · Created by Munish Gandhi · Drafted 2026-03-02</footer>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       RENDERER — no need to touch
+       ═══════════════════════════════════════════════════════════════ -->
+  <script>
+    function renderTigerCard(t) {
+      const memberChips = t.members.map(m =>
+        `<span class="chip${m.contrib ? ' contrib' : ''}">${m.name}${m.role ? ' · ' + m.role : ''}</span>`
+      ).join('');
+
+      const secondaryMetrics = t.northStar.secondary.map(s =>
+        `<span class="scope-pill">${s}</span>`
+      ).join('');
+
+      return `
+        <div class="tiger-card">
+          <div class="tiger-card-header">
+            <h3>${t.name}</h3>
+          </div>
+          <div class="tiger-card-body">
+            <div class="meta-row">
+              <div class="meta-item"><label>Product Owner</label><span>${t.productOwner}</span></div>
+              <div class="meta-item"><label>Enterprise Architect</label><span>${t.enterpriseArchitect}</span></div>
+              <div class="meta-item"><label>Business Whisperer</label><span>${t.businessWhisperer}</span></div>
+              <div class="meta-item"><label>Technical Expert</label><span style="${t.technicalExpert ? '' : 'color:#c0392b'}">${t.technicalExpert || 'Not assigned'}</span></div>
+            </div>
+            <div class="focus-block"><label>Goal</label><p>${t.goal}</p></div>
+            ${t.members.length ? `
+            <div class="members-block">
+              <label>Core Members</label>
+              <div class="member-chips">${memberChips}</div>
+            </div>` : ''}
+            <div class="northstar">
+              <label>North Star</label>
+              <p><strong>${t.northStar.primary}</strong></p>
+              <div class="scope-pills" style="margin-top:6px">${secondaryMetrics}</div>
+            </div>
+            <div class="meta-row">
+              <div class="meta-item"><label>Execution Horizon</label><span>${t.executionHorizon}</span></div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function renderPracticeCard(p) {
+      const memberChips = p.members.map(m =>
+        `<span class="chip${m.contrib ? ' contrib' : ''}">${m.name}${m.role ? ' · ' + m.role : ''}</span>`
+      ).join('');
+
+      const ownsItems = p.owns.map(o => `<div class="owns-item">${o}</div>`).join('');
+
+      return `
+        <div class="practice-card">
+          <div class="practice-card-header">
+            <h3>${p.name}${p.subtitle ? `<br><span style="font-weight:400;opacity:0.75">${p.subtitle}</span>` : ''}</h3>
+          </div>
+          <div class="practice-card-body">
+            <div class="meta-row">
+              <div class="meta-item"><label>Product Owner</label><span>${p.productOwner}</span></div>
+              <div class="meta-item"><label>Tech Lead</label><span>${p.techLead}</span></div>
+            </div>
+            ${p.goal ? `<div class="northstar"><label>Goal</label><p>${p.goal}</p></div>` : ''}
+            <div class="members-block">
+              <label>Members</label>
+              <div class="member-chips">${memberChips}</div>
+            </div>
+            <div class="owns-list"><label>Owns</label>${ownsItems}</div>
+          </div>
+        </div>`;
+    }
+
+    document.getElementById('tiger-grid').innerHTML = TIGER_TEAMS.map(renderTigerCard).join('');
+    document.getElementById('practice-grid').innerHTML = PRACTICE_TEAMS.map(renderPracticeCard).join('');
+  </script>
+
+</body>
+</html>
